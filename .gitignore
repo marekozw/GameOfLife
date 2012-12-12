@@ -6,4 +6,6 @@
 *.ear
 
 # Else #
-settings/
+.settings/
+.project
+target/
