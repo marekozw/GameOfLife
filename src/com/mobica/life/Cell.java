@@ -4,9 +4,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.mobica.life.excpetions.CellIsDeadException;
+
 public class Cell {
+	public enum Coordinate {
+		X, Y;
+	}
+
 	private final Position position;
 	private State nextState;
+	private State currentState;
 
 	public Cell(int x, int y) {
 		position = new Position(x, y);
@@ -17,6 +24,22 @@ public class Cell {
 		Cell[] cells = generateNeightbours();
 		Set<Cell> neightbours = new HashSet<Cell>(Arrays.asList(cells));
 		return neightbours;
+	}
+
+	public int getX() {
+		return getCoordinate(Coordinate.X);
+	}
+
+	public int getY() {
+		return getCoordinate(Coordinate.Y);
+	}
+
+	public boolean isAlive() {
+		return currentState.isAlive();
+	}
+
+	private int getCoordinate(Coordinate coordinate) {
+		return coordinate == Coordinate.X ? position.getX() : position.getY();
 	}
 
 	private Cell[] generateNeightbours() {

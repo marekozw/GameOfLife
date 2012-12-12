@@ -16,14 +16,6 @@ public class CellTest {
 	private int x = 0;
 	private int y = 0;
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void shouldBeAbleToRecognizeTwoCellsWithTheSameValues() {
 
@@ -70,14 +62,32 @@ public class CellTest {
 		Set<Cell> actualNeightbours = baseCell.getNeightbours();
 
 		assertTrue(actualNeightbours.contains(new Cell(9, 9)));
+		assertTrue(actualNeightbours.contains(new Cell(9, 10)));
+		assertTrue(actualNeightbours.contains(new Cell(9, 11)));
+		assertTrue(actualNeightbours.contains(new Cell(10, 9)));
+		assertTrue(actualNeightbours.contains(new Cell(10, 11)));
+		assertTrue(actualNeightbours.contains(new Cell(11, 9)));
+		assertTrue(actualNeightbours.contains(new Cell(11, 10)));
+		assertTrue(actualNeightbours.contains(new Cell(11, 11)));
 	}
 
 	@Test
-	public void shouldNotContainsAllNonNeightbours() {
+	public void shouldNotContainAllNonNeightbours() {
 		Cell baseCell = new Cell(10, 10);
 		Set<Cell> actualNeightbours = baseCell.getNeightbours();
 
 		assertFalse(actualNeightbours.contains(new Cell(8, 9)));
+		assertFalse(actualNeightbours.contains(new Cell(9, 8)));
+		assertFalse(actualNeightbours.contains(new Cell(8, 8)));
+
+	}
+
+	@Test
+	public void shouldNotContainItself() {
+		Cell baseCell = new Cell(x, y);
+		Set<Cell> actualNeightbours = baseCell.getNeightbours();
+
+		assertFalse(actualNeightbours.contains(baseCell));
 	}
 
 }
