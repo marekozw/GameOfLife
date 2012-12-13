@@ -4,11 +4,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.mobica.life.excpetions.CellIsDeadException;
-
 public class CellsContainer {
 
-	private Set<Cell> cells;
+	public Set<Cell> cells;
 
 	public CellsContainer() {
 		cells = new HashSet<Cell>();
@@ -26,7 +24,7 @@ public class CellsContainer {
 		resurectCell(new Cell(x, y));
 	}
 
-	private void resurectCell(Cell cell) {
+	public void resurectCell(Cell cell) {
 		cells.add(cell);
 	}
 
@@ -35,10 +33,13 @@ public class CellsContainer {
 	}
 
 	public int getNeightbourCount(Cell cell) {
+		Set<Cell> neightbours = cell.getNeightbours();
 		int counter = 0;
-		for (Iterator<Cell> iterator = cells.iterator(); iterator.hasNext();) {
+		for (Iterator<Cell> iterator = neightbours.iterator(); iterator
+				.hasNext();) {
 			Cell neightbour = (Cell) iterator.next();
-			if (isCellOnBoard(neightbour) && neightbour.isAlive()) {
+			if (cells.contains(neightbour) & getCellAt(neightbour).isAlive()) {
+				// if (isCellOnBoard(neightbour) && neightbour.isAlive()) {
 				counter++;
 			}
 		}
@@ -63,6 +64,19 @@ public class CellsContainer {
 		}
 
 		cells.addAll(neightbours);
+	}
+
+	private Cell getCellAt(Cell other) {
+		for (Iterator<Cell> cellIterator = cells.iterator(); cellIterator
+				.hasNext();) {
+			Cell cell = (Cell) cellIterator.next();
+
+			if (cell.equals(other)) {
+				return cell;
+			}
+
+		}
+		return new Cell(-1, -1, State.DEAD);
 	}
 
 }

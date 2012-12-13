@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.mobica.life.excpetions.CellIsDeadException;
-
 public class Cell {
 	public enum Coordinate {
 		X, Y;
@@ -17,7 +15,12 @@ public class Cell {
 
 	public Cell(int x, int y) {
 		position = new Position(x, y);
+		currentState = State.DEAD;
+	}
 
+	public Cell(int x, int y, State state) {
+		position = new Position(x, y);
+		currentState = state;
 	}
 
 	public Set<Cell> getNeightbours() {
@@ -45,11 +48,16 @@ public class Cell {
 	private Cell[] generateNeightbours() {
 		int x = position.getX();
 		int y = position.getY();
+		State defaultState = State.DEAD;
 
-		Cell[] cells = { new Cell(x - 1, y - 1), new Cell(x - 1, y),
-				new Cell(x - 1, y + 1), new Cell(x, y - 1), new Cell(x, y + 1),
-				new Cell(x + 1, y - 1), new Cell(x + 1, y),
-				new Cell(x + 1, y + 1) };
+		Cell[] cells = { new Cell(x - 1, y - 1, defaultState),
+				new Cell(x - 1, y, defaultState),
+				new Cell(x - 1, y + 1, defaultState),
+				new Cell(x, y - 1, defaultState),
+				new Cell(x, y + 1, defaultState),
+				new Cell(x + 1, y - 1, defaultState),
+				new Cell(x + 1, y, defaultState),
+				new Cell(x + 1, y + 1, defaultState) };
 
 		return cells;
 	}
