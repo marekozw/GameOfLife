@@ -14,4 +14,4 @@
 .project
 target/
 .classpath
-bit/
+bin/
